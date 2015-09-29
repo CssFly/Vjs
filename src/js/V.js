@@ -37,12 +37,16 @@ window.V = function(selector)
       element.classList.toggle(className);
     });
   }
-  return {
-    addClass: function(className){addClass(className); return new V(selector); },
-    hasClass: function(className){hasClass(className); return new V(selector); },
-    removeClass: function(className){removeClass(className); return new V(selector); },
-    toggleClass: function(className){toggleClass(className); return new V(selector); }
-  };
+  function self()
+  {
+    return {
+      addClass: addClass,
+      hasClass: hasClass,
+      removeClass: removeClass,
+      toggleClass: toggleClass
+    };
+  }
+  return self();
 };
 
 /* THIS FILE HAS BEEN GENERATED, DO NOT EDIT */

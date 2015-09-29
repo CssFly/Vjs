@@ -26,7 +26,7 @@ exports.constructV = function(content)
     var bn = quark.split('function ')[1].split('('),
         params = bn[1].split(')')[0],
         fn = bn[0].trim(),
-        fnStr = fn + ': function(' + params + '){' + fn + '(' + params + '); return new V(selector); }',
+        fnStr = fn + ': ' + fn,
         lines = quark.split('\n');
 
     quarks_returns.push(fnStr);
@@ -40,11 +40,16 @@ exports.constructV = function(content)
                  '{\n'+
                  '  var elements = typeof(selector) === \'string\' ? [].slice.call(document.querySelectorAll(selector)) : [selector];\n' +
                  '' + quarks.join('') + '\n' +
-                 '  return {\n'+
-                 '' + indent(quarks_returns, 4).join(',\n') + '\n' +
-                 '  };\n'+
+                 '  function self()\n' +
+                 '  {\n' +
+                 '    return {\n'+
+                 '' + indent(quarks_returns, 6).join(',\n') + '\n' +
+                 '    };\n'+
+                 '  }\n' +
+                 '  return self();\n'+
                  '};\n\n' +
                  EDIT_HINT;
 
   return template;
 };
+
