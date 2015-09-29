@@ -13,16 +13,13 @@ exports.constructV = function(content)
       {
         return lines.map(function(line)
         {
-          var tab = new Array(tabSize + 1).join(' ');
-          if(line.trim().length < 1)
-          {
-            tab = '';
-          }
+          var tab = line.trim().length < 1 ? new Array(tabSize + 1).join(' ') : '';
           return tab + line;
         });
       };
 
-  quarks = quarks.map(function(quark){
+  quarks = quarks.map(function(quark)
+  {
     var bn = quark.split('function ')[1].split('('),
         params = bn[1].split(')')[0],
         fn = bn[0].trim(),
@@ -30,12 +27,11 @@ exports.constructV = function(content)
         lines = quark.split('\n');
 
     quarks_returns.push(fnStr);
-    lines = indent(lines, 2);
-    return lines.join('\n');
+    return indent(lines, 2).join('\n');
   });
 
-  var EDIT_HINT = '/* THIS FILE HAS BEEN GENERATED, DO NOT EDIT */\n\n';
-  var template = EDIT_HINT +
+  var editHint = '/* THIS FILE HAS BEEN GENERATED, DO NOT EDIT */\n\n',
+      template = editHint +
                  'window.V = function(selector)\n' +
                  '{\n'+
                  '  var elements = typeof(selector) === \'string\' ? [].slice.call(document.querySelectorAll(selector)) : [selector];\n' +
@@ -43,12 +39,12 @@ exports.constructV = function(content)
                  '  function self()\n' +
                  '  {\n' +
                  '    return {\n'+
-                 '' + indent(quarks_returns, 6).join(',\n') + '\n' +
+                        indent(quarks_returns, 6).join(',\n') + '\n' +
                  '    };\n'+
                  '  }\n' +
                  '  return self();\n'+
                  '};\n\n' +
-                 EDIT_HINT;
+                 editHint;
 
   return template;
 };
