@@ -13,7 +13,7 @@ exports.constructV = function(content)
       {
         return lines.map(function(line)
         {
-          var tab = line.trim().length < 1 ? new Array(tabSize + 1).join(' ') : '';
+          var tab = line.trim().length < 1 ? '' : new Array(tabSize + 1).join(' ');
           return tab + line;
         });
       };
@@ -34,14 +34,14 @@ exports.constructV = function(content)
       template = editHint +
                  'window.V = function(selector)\n' +
                  '{\n'+
-                 '  var elements = typeof(selector) === \'string\' ? [].slice.call(document.querySelectorAll(selector)) : [selector];\n' +
-                 '' + quarks.join('') + '\n' +
+                 '  var elements = typeof(selector) === \'string\' ? [].slice.call(document.querySelectorAll(selector)) : [selector];\n\n' +
                  '  function self()\n' +
                  '  {\n' +
                  '    return {\n'+
                         indent(quarks_returns, 6).join(',\n') + '\n' +
                  '    };\n'+
                  '  }\n' +
+                 '' + quarks.join('') + '\n' +
                  '  return self();\n'+
                  '};\n\n' +
                  editHint;
