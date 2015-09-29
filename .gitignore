@@ -1,0 +1,5 @@
+node_modules/*
+dest/*
+src/js/.DS_Store
+src/.DS_Store
+.DS_Store

@@ -1,0 +1,17 @@
+{
+  "name": "VJS",
+  "version": "0.0.1",
+  "description": "Vanilla JS library",
+  "dependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "PH",
+  "devDependencies": {
+    "gulp": "~3.9.0",
+    "gulp-uglify": "~1.2.0",
+    "gulp-change": "~1.0.0",
+    "gulp-concat": "~2.6.0",
+    "del": "~2.0.2"
+  }
+}
